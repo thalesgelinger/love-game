@@ -20,4 +20,15 @@ function Button:new(props)
     return obj
 end
 
+function Button:clicked(x, y)
+    return x > self.x and x < self.x + self.width and y > self.y and y < self.y + self.height
+end
+
+function Button:draw()
+    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.printf(self.text, self.x, self.y + self.height / 2 - 10,
+        self.width, "center")
+end
+
 return Button
