@@ -20,4 +20,9 @@ function Player:new()
     return obj
 end
 
+function Player:draw()
+    love.graphics.setColor(player.color)
+    love.graphics.circle("fill", player.x, player.y, player.radius)
+end
+
 return Player

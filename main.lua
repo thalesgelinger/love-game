@@ -1,18 +1,20 @@
 local Player = require "player"
+local State = require "state"
+local Button = require "button"
 -- Load the Love2D framework
-dash_duration = 0.2                                                                -- How long the dash lasts
-dash_cooldown = 0.5                                                                -- Cooldown between dashes
-game_over = false                                                                  -- Game over state
-restart_button = { x = 300, y = 250, width = 200, height = 100, text = "Restart" } -- Restart button
-kill_count = 0                                                                     -- Count of enemies killed
-max_kills = 0                                                                      -- Track the maximum kills achieved
-spawn_interval = 2                                                                 -- Time in seconds between spawns
-spawn_decrease_rate = 0.05                                                         -- Decrease spawn interval by this amount every 10 seconds
-spawn_min_interval = 0.5                                                           -- Minimum spawn interval
 
-time_elapsed = 0                                                                   -- Tracks time elapsed since game start
+time_elapsed = 0 -- Tracks time elapsed since game start
 
+
+state = State:new()
 player = Player:new()
+restart_button = Button:new({
+    x = 300,
+    y = 250,
+    width = 200,
+    height = 100,
+    text = "Restart"
+})
 
 enemies = {
     { x = 200, y = 200, radius = 15, color = { 1, 0, 0 } }, -- red
@@ -168,9 +170,7 @@ function love.draw()
         return
     end
 
-    -- Draw player
-    love.graphics.setColor(player.color)
-    love.graphics.circle("fill", player.x, player.y, player.radius)
+    player:draw()
 
     -- Draw enemies
     for _, enemy in ipairs(enemies) do
@@ -182,4 +182,3 @@ function love.draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.printf("Kills: " .. kill_count, 10, 10, love.graphics.getWidth(), "left")
 end
-
