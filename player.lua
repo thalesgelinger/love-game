@@ -1,5 +1,16 @@
 --- @class PlayerProps
 --- @field x number
+--- @field y number
+--- @field radius number
+--- @field speed number
+--- @field color table
+--- @field is_dashing boolean
+--- @field dash_timer number
+--- @field dash_cooldown_timer number
+--- @field dx number
+--- @field dy number
+
+
 --- @class Player: PlayerProps
 local Player = {}
 Player.__index = Player
@@ -24,7 +35,7 @@ function Player:new()
 end
 
 function Player:attack(key, game_state)
-    if key == "k" and not self.is_dashing and self.dash_cooldown_timer <= 0 and not game_state.game_over then
+    if not self.is_dashing and self.dash_cooldown_timer <= 0 and not game_state.game_over then
         self.is_dashing = true
         self.dash_timer = game_state.dash_duration
         self.dash_cooldown_timer = game_state.dash_cooldown
